@@ -158,7 +158,7 @@ __DATA__
           </ul>
           <ul class="nav hidden-xs" id="sidebar-footer">
             <li>
-              <a href="http://gomical.net"><h3>gomical</h3>http://gomical.net</a>
+              <a href="http://www.gomical.net"><h3>gomical</h3>http://www.gomical.net</a>
             </li>
           </ul>
         </div>
