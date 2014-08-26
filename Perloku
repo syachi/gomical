@@ -1,0 +1,2 @@
+#!/bin/sh
+./myaap.pl daemon -l http://*:$PORT -m production
