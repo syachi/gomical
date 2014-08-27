@@ -135,6 +135,7 @@ __DATA__
   <title>札幌市のごみ収集カレンダー ical版</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -147,7 +148,7 @@ __DATA__
         
         <!-- sidebar -->
         <div class="column col-sm-3" id="sidebar">
-          <a class="logo" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+          <a class="logo" href="#top"><span class="glyphicon glyphicon-trash"></span></a>
           <ul class="nav">
             % {
             %   my $i = 0;
@@ -157,20 +158,19 @@ __DATA__
             % }
           </ul>
           <ul class="nav hidden-xs" id="sidebar-footer">
-            <li>
-              <a href="http://gomical.net"><h3>gomical</h3>http://gomical.net</a>
-            </li>
+              <h3>gomical <a href="https://github.com/syachi/gomical"><i class="fa fa-github"></i></a></h3>
+              <a href="http://gomical.net">http://gomical.net</a>
           </ul>
         </div>
         <!-- /sidebar -->
       
         <!-- main -->
         <div class="column col-sm-9" id="main">
-          <div class="padding">
+          <div class="padding" id="top">
             <div class="full col-sm-9">
   
               <div class="col-sm-12">
-                <h1>札幌市のごみ収集日カレンダー<small> ical版</small></h1>
+                <h1>札幌市のごみ収集日カレンダー<small> iCal版</small></h1>
                 <p>札幌市のごみ収集日をical形式で配布しています。</p>
               </div>
 
