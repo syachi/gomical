@@ -71,6 +71,8 @@ sub main
         my @streets = $w->find_all_links(url_regex => qr@/carender/[0-9]+.+\.html$@);
         foreach my $street (@streets) {
 
+            printf "=> %s - %s\n", $ward->text(), $street->text();
+
             # md5で出力するファイル名を決める
             my $filename = Digest::MD5::md5_hex($street->url_abs) . '.json';
 
@@ -128,10 +130,13 @@ sub parser
         '燃やせるごみ'           => [],
     };
 
-    my @matches = ($content =~ m@(平成.+の収集日です。.*?)<.+?>@g);
+    my @matches = ($content =~ m@(平成.+の収集日です。.*?)(<.+?>|&nbsp;)@g);
     foreach my $match (@matches) {
 
+        $match =~ s/3、0日の火曜日です/、30日の火曜日です/; # 2014
+
         next if !($match =~ m@平成(?<wa>[0-9]+?)年(?<mon>[0-9]+?)月@); # unless
+
 
         my $year = $+{wa} + 1988; # 平成->西暦
         my $month = $+{mon}; # 月
@@ -151,6 +156,10 @@ sub parser
                 push $ret->{'枝・葉・草'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
             } elsif (/^枝・葉・草は(\d+)日の\S+曜日です/) {
                 push $ret->{'枝・葉・草'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
+            } elsif (/^枝・葉・草は、(\d+)日の\S+曜日です/) { # 2014
+                push $ret->{'枝・葉・草'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
+            } elsif (/^枝・葉・草(\d+)日の\S+曜日です/) { # 2014
+                push $ret->{'枝・葉・草'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
 
             } elsif (/^びん・缶・ペットボトルは毎週(\S+?)曜日、容器包装プラスチックは毎週(\S+?)曜日です/) {
                 push $ret->{'びん・缶・ペットボトル'}, date_format([ParseRecur("every $day->{$1} in $mon->{$month} $year")]);
@@ -160,6 +169,9 @@ sub parser
                 push $ret->{'雑がみ'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
                 push $ret->{'雑がみ'}, date_format([ParseDate("$2 in $mon->{$month} $year")]);
             } elsif (/^雑がみは(\d+)、(\d+)日の\S+曜日です/) {
+                push $ret->{'雑がみ'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
+                push $ret->{'雑がみ'}, date_format([ParseDate("$2 in $mon->{$month} $year")]);
+            } elsif (/^雑がみ(\d+)日、(\d+)日の\S+曜日です/) { # 2014
                 push $ret->{'雑がみ'}, date_format([ParseDate("$1 in $mon->{$month} $year")]);
                 push $ret->{'雑がみ'}, date_format([ParseDate("$2 in $mon->{$month} $year")]);
             } elsif (/^雑がみは(\d+)、(\d+)日、(\d+)日の\S+曜日です/) { # レア
