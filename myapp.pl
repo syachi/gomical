@@ -37,7 +37,7 @@ get '/' => sub {
   my $c = shift;
   my ($state, $city) = ('北海道', '札幌市');
   my $area = $c->get_area($state, $city) or return $c->render_not_found;
-  $c->stash(state => $state, city  => $city, area  => $area, ver => 1);
+  $c->stash(state => $state, city  => $city, area  => $area, ver => 2);
   $c->render('index');
 };
 
