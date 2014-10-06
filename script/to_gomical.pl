@@ -111,7 +111,13 @@ sub date_format
 
     my @ret = ();
     foreach my $day (@$days) {
-        push @ret, UnixDate($day, "%Y-%m-%d");
+        my $dtstr = UnixDate($day, "%Y-%m-%d");
+
+        # 音声読み上げページの方が間違っているので対処。この日は集取は休み。
+        next if $dtstr =~ m/2014-12-31/; # 2014
+        next if $dtstr =~ m/2015-01-0[1-2]/; # 2014
+
+        push @ret, $dtstr;
     }
     return @ret;
 }
