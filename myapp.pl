@@ -172,6 +172,7 @@ __DATA__
               <div class="col-sm-12">
                 <h1>札幌市のごみ収集日カレンダー<small> iCal版</small></h1>
                 <p>札幌市のごみ収集日をical形式で配布しています。</p>
+                <p>カレンダーは2015年の9月分まで公開しています。</p>
               </div>
 
               <div class="col-sm-12">
